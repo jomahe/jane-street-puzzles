@@ -3,6 +3,7 @@
 ## Description:
 
 <img title="board" src="https://www.janestreet.com/puzzles/october-2024.png">
+
 Pick distinct positive integers A, B, and C, and place them in the grid above.
 Your goal is to create two corner-to-corner trips — one from a1 to f6, and the
 other from a6 to f1 — both of which score exactly 2024 points.
@@ -30,10 +31,17 @@ Full page [here](https://www.janestreet.com/puzzles/current-puzzle/)
 
 ## Approach:
 
-First, I am going to generate all possible paths from A1 to F6 and brute-force
-my way to find the solution that generates a score of 2024 by formulating a
-integer program that will find integers satisfying the rules. It's likely that
-many solutions will not work, so I will likely have to create a new IP for each
-potential path. Because of the first sub-rule, this will be a convex
-optimization problem (multiplying the score by the different integer value). I
-can probably do this with scipy.
+First, I am going to generate all possible paths from a1 to f6 and a6 to f1,
+then brute-force my way to find the solution that generates a score of 2024 by
+formulating an integer program that will find integers satisfying the rules.
+It's likely that many solutions will not work, so I will likely have to create a
+new IP for each potential path. Because of the first sub-rule, this will be a
+convex optimization problem (multiplying the score by the different integer
+value). I can probably do this with scipy in Python, which should make
+formulating the IP for each path fairly quick.
+
+**Notes:**
+
+- It seems, intuitively, that the longest paths will yield the results with the
+  lowest total sum. I should therefore attempt to optimize the integer
+  combinations for those longest paths first.
