@@ -1,4 +1,5 @@
 #include <iostream>
+#include <iomanip>
 #include <random>
 
 using namespace std;
@@ -28,17 +29,21 @@ void ApplyTransform(pair<double,double>& blue, pair<double,double>& red,
     case ('r'):
       blue = {blue_y_raw, 1.0 - blue_x_raw};
       red = {red_y_raw, 1.0 - red_x_raw};
+      break;
     case ('t'):
       blue = {1.0 - blue_x_raw, 1.0 - blue_y_raw};
       red = {1.0 - red_x_raw, 1.0 - red_y_raw};
+      break;
     case ('l'):
       blue = {1.0 - blue_y_raw, blue_x_raw};
       red = {1.0 - red_y_raw, red_x_raw};
+      break;
     case ('b'):
-      blue = blue;
-      red = red;
+      // No transformation needed!
+      break;
     default:
       // If closest isn't one of these chars, fucked up.
+      break;
   }
 }
 
@@ -81,11 +86,11 @@ bool FoundEquidistantPoint() {
 
   char closest = ' ';
 
-  if (right_dist <= min(top_dist, bottom_dist, left_dist)) {
+  if (right_dist <= min(min(top_dist, bottom_dist), left_dist)) {
     closest = 'r';
-  } else if (top_dist <= min(right_dist, bottom_dist, left_dist)) {
+  } else if (top_dist <= min(min(right_dist, bottom_dist), left_dist)) {
     closest = 't';
-  } else if (bottom_dist <= min(top_dist, right_dist, left_dist)) {
+  } else if (bottom_dist <= min(min(top_dist, right_dist), left_dist)) {
     closest = 'b';
   } else {
     closest = 'l';
@@ -95,12 +100,12 @@ bool FoundEquidistantPoint() {
 }
 
 int main(void) {
-
   int num_equidistant = 0, total_count = 0;
   while (true) {
     ++total_count;
     num_equidistant += FoundEquidistantPoint();
-    cout << (double) num_equidistant / (double) total_count << endl;
+    cout << "Total runs: " << total_count << ". Current probability: "
+         << setprecision(10) << (double) num_equidistant / (double) total_count << endl;
   }
 
   return 0;

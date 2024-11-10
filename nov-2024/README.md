@@ -4,7 +4,10 @@
 
 <img title="squares" src="https://www.janestreet.com/puzzles/november-2024.png">
 
-Two random points, one red and one blue, are chosen uniformly and independently from the interior of a square. To ten decimal places1, what is the probability that there exists a point on the side of the square closest to the blue point that is equidistant to both the blue point and the red point?
+Two random points, one red and one blue, are chosen uniformly and independently
+from the interior of a square. To ten decimal places1, what is the probability
+that there exists a point on the side of the square closest to the blue point
+that is equidistant to both the blue point and the red point?
 
 ## Approach:
 
@@ -27,6 +30,10 @@ midpoint there, and then used a line perpendicular to that segment, intersecting
 with the midpoint. If the closest side of the square's line segment was a true
 line (ran forever in both directions), we'd be guaranteed to find an intersection
 unless they shared the exact same x or y coordinate. However, since the sides do
-not extend forever, there is a probabilistic elemtn to it. If the perpendicular
+not extend forever, there is a probabilistic element to it. If the perpendicular
 line intersects with the side of the square, we can add one to the count and
 continue with the simulation.
+
+Update: after running 1204401929 trials, ended up confidently with a result of
+0.78035, not enough decimal places. Might need to find a purer math-based
+approach to the problem.
