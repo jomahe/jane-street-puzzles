@@ -19,38 +19,61 @@ pair<double, double> GenerateRandPoint() {
 
 // Apply a transformation to the points and sweep from the "bottom" side of
 // the square
-pair<pair<double,double>, pair<double,double>> ApplyTransform(
-    pair<double,double> blue, pair<double,double> red, char& closest) {
-  pair<double,double> blue_prime;
-  pair<double,double> red_prime;
+void ApplyTransform(pair<double,double>& blue, pair<double,double>& red,
+                    char& closest) {
+  double blue_x_raw = blue.first, blue_y_raw = blue.second;
+  double red_x_raw = red.first, red_y_raw = red.second;
 
   switch(closest) {
     case ('r'):
-      blue_prime = {blue.second, 1.0 - blue.first};
-      red_prime = {red.second, 1.0 - red.first};
+      blue = {blue_y_raw, 1.0 - blue_x_raw};
+      red = {red_y_raw, 1.0 - red_x_raw};
     case ('t'):
-      blue_prime = {1.0 - blue.first, 1.0 - blue.second};
-      red_prime = {1.0 - red.first, 1.0 - red.second};
+      blue = {1.0 - blue_x_raw, 1.0 - blue_y_raw};
+      red = {1.0 - red_x_raw, 1.0 - red_y_raw};
     case ('l'):
-      blue_prime = {1.0 - blue.second, blue.first};
-      red_prime = {1.0 - red.second, red.first};
+      blue = {1.0 - blue_y_raw, blue_x_raw};
+      red = {1.0 - red_y_raw, red_x_raw};
     case ('b'):
-      blue_prime = blue;
-      red_prime = red;
+      blue = blue;
+      red = red;
     default:
       // If closest isn't one of these chars, fucked up.
   }
-  return {blue_prime, red_prime};
+}
+
+// Function to find the line intersecting the two points, find the midpoint of
+// the line, and to follow the line perpendicular (and intersecting the
+// midpoint) to the endpoints of the line (0,0) and (1,0). We can simply check
+// the endpoints and see if either of the checks evaluate to <= 0. If so, then
+// the line must intersect with the bottom of the square.
+bool FoundEquidistantPointOnSegment(
+    pair<double,double>& blue, pair<double,double>& red) {
+  // Find the line intersecting the two points, the midpoint of
+  double connecting_slope =
+    (blue.second - red.second) / (blue.first - red.first);
+  auto starting_point = blue.first <= red.first ? blue : red;
+  auto midpoint = pair<double,double>(
+    (blue.first + red.first) / 2.0,
+    starting_point.second +
+      connecting_slope * ((blue.first + red.first) / 2.0 - starting_point.first)
+  );
+
+  double perpendicular_slope = -1.0 / connecting_slope;
+
+  // Check the endpoints of the perpendicular line
+  return (connecting_slope * (1 - midpoint.first) + midpoint.second <= 0 ||
+          connecting_slope * (0 - midpoint.first) + midpoint.second <= 0);
 }
 
 bool FoundEquidistantPoint() {
   // Generate blue and red points
-  pair<double, double> blue_raw = GenerateRandPoint();
-  pair<double, double> red_raw = GenerateRandPoint();
+  pair<double, double> blue = GenerateRandPoint();
+  pair<double, double> red = GenerateRandPoint();
 
   // Determine which side is closest to blue; use the perpendicular distance to
   // each side since that's the shortest path.
-  double blue_x = blue_raw.first, blue_y = blue_raw.second;
+  double blue_x = blue.first, blue_y = blue.second;
   double top_dist, bottom_dist, left_dist, right_dist;
 
   top_dist = 1 - blue_y, bottom_dist = blue_y;
@@ -67,11 +90,8 @@ bool FoundEquidistantPoint() {
   } else {
     closest = 'l';
   }
-
-  auto [blue, red] = ApplyTransform(blue_raw, red_raw, closest);
-
-  // Implement a binary search to look for a point equidistant from both points
-
+  ApplyTransform(blue, red, closest);
+  return FoundEquidistantPointOnSegment(blue, red);
 }
 
 int main(void) {
