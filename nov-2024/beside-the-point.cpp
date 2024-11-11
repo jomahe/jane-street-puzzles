@@ -57,6 +57,7 @@ bool FoundEquidistantPointOnSegment(
   // Find the line intersecting the two points, the midpoint of
   double connecting_slope =
     (blue.second - red.second) / (blue.first - red.first);
+
   auto starting_point = blue.first <= red.first ? blue : red;
   auto midpoint = pair<double,double>(
     (blue.first + red.first) / 2.0,
@@ -67,8 +68,8 @@ bool FoundEquidistantPointOnSegment(
   double perpendicular_slope = -1.0 / connecting_slope;
 
   // Check the endpoints of the perpendicular line
-  return (connecting_slope * (1 - midpoint.first) + midpoint.second <= 0 ||
-          connecting_slope * (0 - midpoint.first) + midpoint.second <= 0);
+  return (perpendicular_slope * (1 - midpoint.first) + midpoint.second <= 0 ||
+          perpendicular_slope * (0 - midpoint.first) + midpoint.second <= 0);
 }
 
 bool FoundEquidistantPoint() {

@@ -34,6 +34,6 @@ not extend forever, there is a probabilistic element to it. If the perpendicular
 line intersects with the side of the square, we can add one to the count and
 continue with the simulation.
 
-Update: after running 1204401929 trials, ended up confidently with a result of
-0.78035, not enough decimal places. Might need to find a purer math-based
+Update: after running many many trials, ended up confidently with a result of
+0.4913, not enough decimal places. Might need to find a purer math-based
 approach to the problem.
