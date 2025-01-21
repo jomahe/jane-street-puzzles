@@ -184,7 +184,7 @@ int main(void) {
    * Highest number such that there are at least nine unique numbers which
    * satisfy the row requirements for a sudoku board given the starting board
    */
-  int gcd = 13428567;
+  int gcd = 12345679;
   while (gcd > 0) {
     cout << "checking: " << gcd << endl;
     vector<vector<int>> unique_multiples = GenerateUniqueMultiples(gcd);
