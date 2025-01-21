@@ -6,7 +6,7 @@
 
 Fill the empty cells in the grid above with digits such that each row, column,
 and outlined 3-by-3 box contains the same set of nine unique digits^1, and such
-that the nine 9-digit numbers^2 formed by the rows of the grid has the
+that the nine 9-digit numbers${^2}$ formed by the rows of the grid has the
 highest-possible GCD over any such grid.
 
 Some of the cells have already been filled in. The answer to this puzzle is the
