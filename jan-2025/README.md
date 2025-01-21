@@ -28,9 +28,11 @@ Next, we take this vector and for each of the digits left out, generate "buckets
 
 This number was `[0]12345679`, whose multiples and potential rows (from top to bottom) were: `395061728, [0]61728395, 728395061, 950617283, 283950617, 617283950, 839506172, 506172839, 172839506`
 
+<img src="solution.png">
+
 Therefore, the answer to this problem was `283950617`, the 9-digit number occupying the middle row.
 
 ## Learnings:
 
 - Do not attempt to brute-force a solution to these puzzles.
-- If you need to use computation, try to reduce the set of possible solutions as much as you can before doing so. For example, the first step was to start computing from the largest possible GCD for numbers between `[10^7, 10^8]`, which was `98765431`. Then, it narrowed it down to the largest GCD s.t. nine uniques could be found, `013428567`. Then, narrowed it down to the largest GCD s.t. all 9 buckets were occupied, `012345679`. This happened to be the solution, but the set of numbers to check for was reduced by ≈ 98.75%.
+- If you need to use computation, try to reduce the set of possible solutions as much as you can before doing so. For example, the first step was to start computing from the largest possible GCD for numbers between `[10^7, 10^8]`, which was `98765431`. Then, it narrowed it down to the largest GCD s.t. nine uniques could be found, `013428567`. Then, narrowed it down to the largest GCD s.t. all 9 buckets were occupied, `012345679`. This happened to be the solution, but the set of numbers to check for was already reduced by ≈ 98.75%; it likely significantly reduced the amount of computation required to reach a potential smaller solution than if we began at the original starting number.
