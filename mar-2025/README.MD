@@ -20,7 +20,7 @@ In the end, you came up with the following board:
 
 <img src="solution.jpeg">
 
-The answer to this month's problem was the product of the sums of each side. In left, top, right, bottom order, this was: 2251 \* 480 \* 165 \* 3356 = **601,931,086,080**.
+The answer to this month's problem was the product of the sums of each side. In left, top, right, bottom order, this was: 2251 \* 480 \* 166 \* 3356 = **601,931,086,080**.
 
 ## Learnings:
 
